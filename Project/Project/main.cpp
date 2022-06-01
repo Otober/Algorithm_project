@@ -52,17 +52,17 @@ int f_calc_time(string t1, string t2) {
     if (t1.length() == 5) t1 = '0' + t1;
     if (t2.length() == 5) t2 = '0' + t2;
 
-    if (stoi(t1) > stoi(t2)) swap(t1, t2);
+    if (stoi(t1) < stoi(t2)) swap(t1, t2);
 
     int hour = stoi(t1.substr(0, 2)) - stoi(t2.substr(0, 2));
     int minute = stoi(t1.substr(2, 2)) - stoi(t2.substr(2, 2));
     int second = stoi(t1.substr(4, 2)) - stoi(t2.substr(4, 2));
 
-    if (hour < 0) {
+    if (hour > 0) {
         hour--;
         minute += 60;
     }
-    if (minute < 0) {
+    while (minute) {
         minute--;
         second += 60;
     }
@@ -104,7 +104,7 @@ void f_check_all() {
                 }
             }
 
-            if (m.find("P" + niter) != m.end()) {
+            if ((m.find("P" + niter) != m.end()) && (m.find("P" + to_string(external_code)) == m.end())) {
                 if (m_t.find(make_pair(iter.first, "P" + niter)) == m_t.end()) {
                     cout << iter.first << " " << "P" + niter << "\n";
                 }
@@ -168,7 +168,6 @@ int main(int argc, char* argv[])
     }
 
     vector<string> row1 = f_csv_read_row(file2, ','); //except first line
-    row1 = f_csv_read_row(file2, ',');
     while (file2.good()) {
         vector<string> row2 = f_csv_read_row(file2, ',');
         if (m.find(row2[4]) == m.end()) {
@@ -190,7 +189,30 @@ int main(int argc, char* argv[])
     }
     file2.close();
     
+    ifstream file3(".\\subway_exception.csv");
+    if (file3.fail()) {
+        return (cout << "해당 경로에 위치하는 파일이 존재하지 않습니다." << endl) && 0;
+    }
+
+    vector<string> row3 = f_csv_read_row(file3, ','); //except first line
+    while (file3.good()) {
+        vector<string> row3 = f_csv_read_row(file3, ',');
+        if (m_t.find(make_pair(row3[1], row3[3])) != m_t.end()) cout << "already exist" << "\n";
+        else {
+            m_t.insert(make_pair(make_pair(row3[1], row3[3]), stoi(row3[5])));
+            m_t.insert(make_pair(make_pair(row3[3], row3[1]), stoi(row3[5])));
+        }
+    }
+    file2.close();
+
     f_check_all();
+    cout << "-----------all path -----------" << "\n";
+    for (auto iter : m_t) {
+        cout << iter.first.first << " " << iter.first.second << " " << iter.second << "\n";
+        auto test = m_t.find(make_pair(iter.first.second, iter.first.first));
+        if (test == m_t.end()) cout << "path error" << "\n";
+        if (test->second != iter.second) cout << "path error";
+    }
     return 0;
 }
 

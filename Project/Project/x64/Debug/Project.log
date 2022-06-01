@@ -1,4 +1,4 @@
 ﻿  main.cpp
-D:\Work\Algorithm\Project\Project\main.cpp(159,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Work\Algorithm\Project\Project\main.cpp(49): warning C4715: 'f_csv_read_row': not all control paths return a value
-  Project.vcxproj -> D:\Work\Algorithm\Project\x64\Debug\Project.exe
+C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(159,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(49): warning C4715: 'f_csv_read_row': not all control paths return a value
+  Project.vcxproj -> C:\Users\jjehd\source\repos\Algorithm_project\Project\x64\Debug\Project.exe
