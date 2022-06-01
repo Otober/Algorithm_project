@@ -203,7 +203,7 @@ int main(int argc, char* argv[])
             m_t.insert(make_pair(make_pair(row3[3], row3[1]), stoi(row3[5])));
         }
     }
-    file2.close();
+    file3.close();
 
     f_check_all();
     cout << "-----------all path -----------" << "\n";
