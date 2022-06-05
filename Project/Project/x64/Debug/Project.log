@@ -1,4 +1,6 @@
 ﻿  main.cpp
-C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(159,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(158,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(49): warning C4715: 'f_csv_read_row': not all control paths return a value
+C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(215): warning C4715: 'f_initialize': not all control paths return a value
+  LINK : C:\Users\jjehd\source\repos\Algorithm_project\Project\x64\Debug\Project.exe not found or not built by the last incremental link; performing full link
   Project.vcxproj -> C:\Users\jjehd\source\repos\Algorithm_project\Project\x64\Debug\Project.exe

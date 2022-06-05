@@ -145,8 +145,7 @@ void f_check_all() {
     }
 }
 
-int main(int argc, char* argv[])
-{
+int f_initialize() {
     ifstream file1(".\\subway.csv");
     if (file1.fail()) {
         return (cout << "해당 경로에 위치하는 파일이 존재하지 않습니다." << endl) && 0;
@@ -158,10 +157,10 @@ int main(int argc, char* argv[])
         vector<string> row = f_csv_read_row(file1, ',');
         for (int i = 0, leng = row.size(); i < leng; i++) {
             m.insert(make_pair(row[3], row[1]));
-        }    
+        }
     }
     file1.close();
-    
+
     ifstream file2(".\\subway_first.csv");
     if (file2.fail()) {
         return (cout << "해당 경로에 위치하는 파일이 존재하지 않습니다." << endl) && 0;
@@ -188,7 +187,7 @@ int main(int argc, char* argv[])
         row1 = row2;
     }
     file2.close();
-    
+
     ifstream file3(".\\subway_exception.csv");
     if (file3.fail()) {
         return (cout << "해당 경로에 위치하는 파일이 존재하지 않습니다." << endl) && 0;
@@ -213,6 +212,11 @@ int main(int argc, char* argv[])
         if (test == m_t.end()) cout << "path error" << "\n";
         if (test->second != iter.second) cout << "path error";
     }
+}
+
+int main()
+{
+    f_initialize();
     return 0;
 }
 
