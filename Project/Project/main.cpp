@@ -1,222 +1,105 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <sstream>
-#include <istream>
-#include <map>
+#include "main.h"
+#include <queue>
 
-using namespace std;
+map < string, pair < double, double > > m_c; // external code , x , y
+map < string, int > visit; // external code , dist(double)
 
-map <string, string> m;
-map < pair < string, string >, int > m_t; //station1_external_code , station2_external_code, time_second
+priority_queue < pair < double, string> > pq; // dist(double) external code
 
-vector<string> f_csv_read_row(istream& file, char delimiter)
-{
-    stringstream ss;
-    bool inquotes = false;
-    vector<string> row;
-    while (file.good()) {
-        char c = file.get();
-        if (!inquotes && c == '"') {
-            inquotes = true;
-        }
-        else if (inquotes && c == '"') {
-            if (file.peek() == '"'){
-                ss << (char)file.get();
-            }
-            else {
-                inquotes = false;
-            }
-        }
-
-        else if (!inquotes && c == delimiter) {
-            row.push_back(ss.str());
-            ss.str("");
-        }
-
-        else if (!inquotes && (c == '\r' || c == '\n')) {
-            if (file.peek() == '\n') {
-                file.get();
-            }
-            row.push_back(ss.str());
-            return row;
-        }
-        else {
-            ss << c;
-        }
-    }
+double f_dist(pair <double, double > a, pair < double, double > b) {
+    return (a.first - b.first) * (a.first - b.first) + (a.second - b.second) * (a.second - b.second);
 }
 
-int f_calc_time(string t1, string t2) {
-    if (t1.length() == 5) t1 = '0' + t1;
-    if (t2.length() == 5) t2 = '0' + t2;
-
-    if (stoi(t1) < stoi(t2)) swap(t1, t2);
-
-    int hour = stoi(t1.substr(0, 2)) - stoi(t2.substr(0, 2));
-    int minute = stoi(t1.substr(2, 2)) - stoi(t2.substr(2, 2));
-    int second = stoi(t1.substr(4, 2)) - stoi(t2.substr(4, 2));
-
-    if (hour > 0) {
-        hour--;
-        minute += 60;
+int f_coordinates() {
+    ifstream file4(".\\subway_coordinates.csv");
+    if (file4.fail()) {
+        return (cout << "해당 경로에 위치하는 파일이 존재하지 않습니다." << endl) && 0;
     }
-    while (minute) {
-        minute--;
-        second += 60;
-    }
-    return second;
-}
 
-void f_check_all() {
-    cout << "-------------No Path-------------" << "\n";
+    while (file4.good()) {
+        vector<string> row4 = f_csv_read_row(file4, ',');
+        if (row4[3] == "#N/A") continue;
+        if (m.find(row4[3]) != m.end()) {
+            m_c.insert(make_pair(row4[3], make_pair(stod(row4[1]), stod(row4[2]))));
+        }
+        else cout << "Error : " << row4[0] << "\n";
+    }
+
     for (auto iter : m) {
-        //P144-1
-        bool P = false; // P = true;
-        int external_code; // 144
-        int external__code = 0; // 1
-
-        if (iter.first[0] != 'P' && iter.first[iter.first.size() - 2] != '-') { // 102 bosan
-            external_code = stoi(iter.first);
-        }
-        else if (iter.first[0] == 'P' && iter.first[iter.first.size() - 2] != '-') { // P142 gasan Digital
-            P = true;
-            external_code = stoi(iter.first.substr(1, 3));
-        }
-        else if (iter.first[0] != 'P' && iter.first[iter.first.size() - 2] == '-') { // 211-1 yongdap
-            external_code = stoi(iter.first.substr(0, 3));
-            external__code = stoi(iter.first.substr(iter.first.length() - 1));
-        }
-        else { // p144-1 Gwangmyeong 
-            P = true;
-            external_code = stoi(iter.first.substr(1, 3));
-            external__code = stoi(iter.first.substr(iter.first.length() - 1));
-        }
-        
-        
-        if (external__code == 0 && P == false) { // 102 bosan
-            string niter = to_string(external_code + 1);
-
-            if (m.find(niter) != m.end()) {
-                if (m_t.find(make_pair(iter.first, niter)) == m_t.end()) {
-                    cout << iter.first << " " << niter << "\n";
-                }
-            }
-
-            if ((m.find("P" + niter) != m.end()) && (m.find("P" + to_string(external_code)) == m.end())) {
-                if (m_t.find(make_pair(iter.first, "P" + niter)) == m_t.end()) {
-                    cout << iter.first << " " << "P" + niter << "\n";
-                }
-            }
-
-            if (m.find(to_string(external_code) + "-1") != m.end()) {
-                if (m_t.find(make_pair(iter.first, to_string(external_code) + "-1")) == m_t.end()) {
-                    cout << iter.first << " " << to_string(external_code) + "-1" << "\n";
-                }
-            }
-        }
-        else if (external__code == 0 && P == true) { // P142 gasan Digital
-            string niter = "P" + to_string(external_code + 1);
-            if (m.find(niter) != m.end()) {
-                if (m_t.find(make_pair(iter.first, niter)) == m_t.end()) {
-                    cout << iter.first << " " << niter << "\n";
-                }
-            }
-            if (m.find("P" + to_string(external_code) + "-1") != m.end()) {
-                if (m_t.find(make_pair(iter.first, "P" + to_string(external_code) + "-1")) == m_t.end()) {
-                    cout << iter.first << " " << "P" + to_string(external_code) + "-1" << "\n";
-                }
-            }
-        }
-        else if (external__code != 0 && P == false) { // 211-1 yongdap
-            string niter = to_string(external_code) + "_" + to_string(external__code + 1);
-            if (m.find(niter) == m.end()) {
-                if (m_t.find(make_pair(iter.first, niter)) != m_t.end()) {
-                    cout << iter.first << " " << to_string(external__code + 1) << "\n";
-                }
-            }
-        }
-
-        else {// p144-1 Gwangmyeong 
-            cout << "error : " << iter.first << "\n";
-            //not have  next station
-        }
+        if (m_c.find(iter.first) == m_c.end()) cout << iter.first << '\n';
     }
-}
+    file4.close();
 
-int f_initialize() {
-    ifstream file1(".\\subway.csv");
-    if (file1.fail()) {
+    ifstream file5(".\\subway_transfer.csv");
+    if (file5.fail()) {
         return (cout << "해당 경로에 위치하는 파일이 존재하지 않습니다." << endl) && 0;
     }
 
-    vector<string> row = f_csv_read_row(file1, ','); //except first line
+    vector<string> row5 = f_csv_read_row(file5, ',');
 
-    while (file1.good()) {
-        vector<string> row = f_csv_read_row(file1, ',');
-        for (int i = 0, leng = row.size(); i < leng; i++) {
-            m.insert(make_pair(row[3], row[1]));
-        }
-    }
-    file1.close();
+    while (file5.good()) {
+        vector<string> row5 = f_csv_read_row(file5, ',');
+        vector < string > temp = m_n.find(row5[1])->second;
 
-    ifstream file2(".\\subway_first.csv");
-    if (file2.fail()) {
-        return (cout << "해당 경로에 위치하는 파일이 존재하지 않습니다." << endl) && 0;
-    }
-
-    vector<string> row1 = f_csv_read_row(file2, ','); //except first line
-    while (file2.good()) {
-        vector<string> row2 = f_csv_read_row(file2, ',');
-        if (m.find(row2[4]) == m.end()) {
-            cout << "empty data : " << row2[4] << "\n";
-            //Handling Empty Data Exceptions
-            //Result : None
-        }
-        else {
-            if (row2[9] == row1[9] && row2[10] == row1[10]) {
-                m_t.insert(make_pair(make_pair(row2[4], row1[4]), f_calc_time(row2[6], row1[6])));
-                m_t.insert(make_pair(make_pair(row1[4], row2[4]), f_calc_time(row2[6], row1[6])));
-            }
-            else if (row2[12] == row1[12] && row2[13] == row1[13]) {
-                m_t.insert(make_pair(make_pair(row1[4], row2[4]), f_calc_time(row2[11], row1[11])));
-                m_t.insert(make_pair(make_pair(row2[4], row1[4]), f_calc_time(row2[11], row1[11])));
+        for (int i = 0; i < temp.size(); i++) {
+            for (int j = 0; j < temp.size(); j++) {
+                if (i == j) continue;
+                
+                
+                //m_t.insert(make_pair(make_pair(temp[i], temp[j]), stoi(row5[5])));
             }
         }
-        row1 = row2;
-    }
-    file2.close();
-
-    ifstream file3(".\\subway_exception.csv");
-    if (file3.fail()) {
-        return (cout << "해당 경로에 위치하는 파일이 존재하지 않습니다." << endl) && 0;
     }
 
-    vector<string> row3 = f_csv_read_row(file3, ','); //except first line
-    while (file3.good()) {
-        vector<string> row3 = f_csv_read_row(file3, ',');
-        if (m_t.find(make_pair(row3[1], row3[3])) != m_t.end()) cout << "already exist" << "\n";
-        else {
-            m_t.insert(make_pair(make_pair(row3[1], row3[3]), stoi(row3[5])));
-            m_t.insert(make_pair(make_pair(row3[3], row3[1]), stoi(row3[5])));
-        }
-    }
-    file3.close();
+    file5.close();
 
-    f_check_all();
-    cout << "-----------all path -----------" << "\n";
-    for (auto iter : m_t) {
-        cout << iter.first.first << " " << iter.first.second << " " << iter.second << "\n";
-        auto test = m_t.find(make_pair(iter.first.second, iter.first.first));
-        if (test == m_t.end()) cout << "path error" << "\n";
-        if (test->second != iter.second) cout << "path error";
-    }
-}
-
-int main()
-{
-    f_initialize();
     return 0;
 }
 
+int main() {
+    f_initialize();
+    f_coordinates();
+    while (true) {
+        string st, et;
+        vector < string > st_n, et_n;
+        while (true) {
+            cout << "Please input the departure subway station name : ";
+            //cin >> st;
+            st = "충무로";
+            if (m_n.find(st) != m_n.end()) {
+                st_n = m_n.find(st)->second;
+                break;
+            }
+            else cout << "Wrong name" << "\n";
+        }
+        
+        while (true) {
+            cout << "Please input the arrival subway station name : ";
+            //cin >> et;
+            et = "서울역";
+            if (m_n.find(et) != m_n.end()) {
+                et_n = m_n.find(et)->second;
+                break;
+            }
+            else cout << "Wrong name" << "\n";
+        }
+        visit.clear();
+        while (!pq.empty()) {
+            pq.pop();
+        }
+        
+        auto et_iter = m_c.find(et_n[0]);
+        for (int i = 0; i < st_n.size(); i++) {
+            auto iter = m_c.find(st_n[i]);
+            pq.push(make_pair(-f_dist(iter->second, et_iter->second), iter->first));
+            visit.insert(make_pair(iter->first, f_dist(iter->second, et_iter->second)));
+        }
+
+        while (pq.empty()) {
+            double cost = pq.top().first;
+            string now = pq.top().second;
+            pq.pop();
+        }
+
+    }
+}

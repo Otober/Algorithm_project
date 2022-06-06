@@ -1,6 +1,87 @@
 ﻿  main.cpp
-C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(158,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(49): warning C4715: 'f_csv_read_row': not all control paths return a value
-C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(215): warning C4715: 'f_initialize': not all control paths return a value
-  LINK : C:\Users\jjehd\source\repos\Algorithm_project\Project\x64\Debug\Project.exe not found or not built by the last incremental link; performing full link
+D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\utility(247,61): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty2=int
+          ]
+D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\xmemory(673): message : see reference to function template instantiation 'std::pair<const std::string,int>::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double,0>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double> &&) noexcept' being compiled
+D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\xmemory(680): message : see reference to function template instantiation 'std::pair<const std::string,int>::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double,0>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double> &&) noexcept' being compiled
+D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\xtree(804): message : see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>>(_Alloc &,_Objty *const ,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double> &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::_Tree_node<std::pair<const std::string,int>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,int>>>::void_pointer>>,
+              _Ty=std::pair<const std::string,int>,
+              _Objty=std::pair<const std::string,int>
+          ]
+D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\xtree(805): message : see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>>(_Alloc &,_Objty *const ,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double> &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::_Tree_node<std::pair<const std::string,int>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,int>>>::void_pointer>>,
+              _Ty=std::pair<const std::string,int>,
+              _Objty=std::pair<const std::string,int>
+          ]
+D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\xtree(996): message : see reference to function template instantiation 'std::_Tree_temp_node<std::allocator<std::_Tree_node<std::pair<const std::string,int>,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_Tree_temp_node<_Ty>(_Alnode &,std::_Tree_node<std::pair<const std::string,int>,std::_Default_allocator_traits<_Alloc>::void_pointer> *,_Ty &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::pair<const std::string,int>>,
+              _Ty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>,
+              _Alnode=std::allocator<std::_Tree_node<std::pair<const std::string,int>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,int>>>::void_pointer>>
+          ]
+D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\xtree(1009): message : see reference to function template instantiation 'std::_Tree_temp_node<std::allocator<std::_Tree_node<std::pair<const std::string,int>,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_Tree_temp_node<_Ty>(_Alnode &,std::_Tree_node<std::pair<const std::string,int>,std::_Default_allocator_traits<_Alloc>::void_pointer> *,_Ty &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::pair<const std::string,int>>,
+              _Ty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>,
+              _Alnode=std::allocator<std::_Tree_node<std::pair<const std::string,int>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,int>>>::void_pointer>>
+          ]
+D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\xtree(1033): message : see reference to function template instantiation 'std::pair<std::_Tree_node<std::pair<const std::string,int>,std::_Default_allocator_traits<_Alloc>::void_pointer> *,bool> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::_Emplace<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double> &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::pair<const std::string,int>>,
+              _Kty=std::string,
+              _Ty=int,
+              _Pr=std::less<std::string>
+          ]
+D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\xtree(1034): message : see reference to function template instantiation 'std::pair<std::_Tree_node<std::pair<const std::string,int>,std::_Default_allocator_traits<_Alloc>::void_pointer> *,bool> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::_Emplace<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double> &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::pair<const std::string,int>>,
+              _Kty=std::string,
+              _Ty=int,
+              _Pr=std::less<std::string>
+          ]
+D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\map(163): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const std::string,int>>>>,bool> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::emplace<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double> &&)' being compiled
+          with
+          [
+              _Kty=std::string,
+              _Ty=int,
+              _Pr=std::less<std::string>,
+              _Alloc=std::allocator<std::pair<const std::string,int>>
+          ]
+D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\map(163): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const std::string,int>>>>,bool> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::emplace<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double> &&)' being compiled
+          with
+          [
+              _Kty=std::string,
+              _Ty=int,
+              _Pr=std::less<std::string>,
+              _Alloc=std::allocator<std::pair<const std::string,int>>
+          ]
+C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(95): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const std::string,int>>>>,bool> std::map<std::string,int,std::less<std::string>,std::allocator<std::pair<const std::string,int>>>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>,0>(_Valty &&)' being compiled
+          with
+          [
+              _Valty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>
+          ]
+C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(95): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const std::string,int>>>>,bool> std::map<std::string,int,std::less<std::string>,std::allocator<std::pair<const std::string,int>>>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>,0>(_Valty &&)' being compiled
+          with
+          [
+              _Valty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>
+          ]
+  main.h
+  Generating Code...
+C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.h(53): warning C4715: 'f_csv_read_row': not all control paths return a value
+C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.h(53): warning C4715: 'f_csv_read_row': not all control paths return a value
   Project.vcxproj -> C:\Users\jjehd\source\repos\Algorithm_project\Project\x64\Debug\Project.exe
