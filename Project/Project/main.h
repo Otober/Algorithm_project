@@ -303,13 +303,6 @@ int f_initialize() {
         row1 = row2;
     }
     file2.close();
-    for (auto iter : m_t) {
-        cout << iter.first << " ";
-        for (int i = 0; i < iter.second.size(); i++) {
-            cout << iter.second[i].first << " " << iter.second[i].second << " ";
-        }
-        cout << "\n";
-    }
     ifstream file3(".\\subway_exception.csv");
     if (file3.fail()) {
         return (cout << "해당 경로에 위치하는 파일이 존재하지 않습니다." << endl) && 0;
@@ -352,14 +345,7 @@ int f_initialize() {
         }*/
     }
     file3.close();
-
-    for (auto iter : m_t) {
-        cout << iter.first << " ";
-        for (int i = 0; i < iter.second.size(); i++) {
-            cout << iter.second[i].first << " " << iter.second[i].second << " ";
-        }
-        cout << "\n";
-    }
+    
     //f_check_all();
     return 0;
 }

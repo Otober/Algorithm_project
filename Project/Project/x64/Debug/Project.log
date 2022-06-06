@@ -70,12 +70,12 @@ D:\Program Files\VisualStudio\IDE\VC\Tools\MSVC\14.31.31103\include\map(163): me
               _Pr=std::less<std::string>,
               _Alloc=std::allocator<std::pair<const std::string,int>>
           ]
-C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(95): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const std::string,int>>>>,bool> std::map<std::string,int,std::less<std::string>,std::allocator<std::pair<const std::string,int>>>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>,0>(_Valty &&)' being compiled
+C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(114): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const std::string,int>>>>,bool> std::map<std::string,int,std::less<std::string>,std::allocator<std::pair<const std::string,int>>>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>,0>(_Valty &&)' being compiled
           with
           [
               _Valty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>
           ]
-C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(95): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const std::string,int>>>>,bool> std::map<std::string,int,std::less<std::string>,std::allocator<std::pair<const std::string,int>>>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>,0>(_Valty &&)' being compiled
+C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(114): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const std::string,int>>>>,bool> std::map<std::string,int,std::less<std::string>,std::allocator<std::pair<const std::string,int>>>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>,0>(_Valty &&)' being compiled
           with
           [
               _Valty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,double>
@@ -84,4 +84,5 @@ C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.cpp(95): mess
   Generating Code...
 C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.h(53): warning C4715: 'f_csv_read_row': not all control paths return a value
 C:\Users\jjehd\source\repos\Algorithm_project\Project\Project\main.h(53): warning C4715: 'f_csv_read_row': not all control paths return a value
+x64\Debug\main.obj : warning LNK4042: object specified more than once; extras ignored
   Project.vcxproj -> C:\Users\jjehd\source\repos\Algorithm_project\Project\x64\Debug\Project.exe

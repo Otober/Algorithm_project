@@ -37,17 +37,29 @@ int f_coordinates() {
 
     vector<string> row5 = f_csv_read_row(file5, ',');
 
+    int cnt = 0;
     while (file5.good()) {
+        cnt++;
+        cout << cnt << "\n";
         vector<string> row5 = f_csv_read_row(file5, ',');
-        vector < string > temp = m_n.find(row5[1])->second;
+        string nstation = row5[6];
+        auto iter = m_t.find(row5[5]);
+        auto f_iter = find_if(iter->second.begin(), iter->second.end(), [&nstation](const pair<string, int>elem) {return elem.first == nstation; });
+        if (f_iter == iter->second.end()) {
+            vector < pair < string, int > > temp = iter->second;
+            temp.push_back(make_pair(row5[6], stoi(row5[4])));
+            m_t.erase(iter);
+            m_t.insert(make_pair(row5[5], temp));
+        }
+        nstation = row5[5];
+        iter = m_t.find(row5[6]);
 
-        for (int i = 0; i < temp.size(); i++) {
-            for (int j = 0; j < temp.size(); j++) {
-                if (i == j) continue;
-                
-                
-                //m_t.insert(make_pair(make_pair(temp[i], temp[j]), stoi(row5[5])));
-            }
+        f_iter = find_if(iter->second.begin(), iter->second.end(), [&nstation](const pair<string, int>elem) {return elem.first == nstation; });
+        if (f_iter == iter->second.end()) {
+            vector < pair < string, int > > temp = iter->second;
+            temp.push_back(make_pair(row5[5], stoi(row5[4])));
+            m_t.erase(iter);
+            m_t.insert(make_pair(row5[6], temp));
         }
     }
 
@@ -59,6 +71,13 @@ int f_coordinates() {
 int main() {
     f_initialize();
     f_coordinates();
+    for (auto iter : m_t) {
+        cout << iter.first << " ";
+        for (int i = 0; i < iter.second.size(); i++) {
+            cout << iter.second[i].first << " " << iter.second[i].second << " ";
+        }
+        cout << "\n";
+    }
     while (true) {
         string st, et;
         vector < string > st_n, et_n;
@@ -99,6 +118,8 @@ int main() {
             double cost = pq.top().first;
             string now = pq.top().second;
             pq.pop();
+
+
         }
 
     }
