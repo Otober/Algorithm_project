@@ -2,12 +2,11 @@
 #include <queue>
 
 map < string, pair < double, double > > m_c; // external code , x , y
-map < string, int > visit; // external code , dist(double)
 
-priority_queue < pair < double, string> > pq; // dist(double) external code
-
-double f_dist(pair <double, double > a, pair < double, double > b) {
-    return (a.first - b.first) * (a.first - b.first) + (a.second - b.second) * (a.second - b.second);
+double f_dist(string now, string next) {
+    pair < double, double > a = m_c.find(now)->second;
+    pair < double, double > b = m_c.find(next)->second;
+    return ((a.first - b.first) * (a.first - b.first) + (a.second - b.second) * (a.second - b.second)) * 1404878;
 }
 
 int f_coordinates() {
@@ -71,6 +70,9 @@ int f_coordinates() {
 int main() {
     f_initialize();
     f_coordinates();
+    vector < string > closed;
+    vector < string > ans;
+    priority_queue < pair < double, string> > pq; // dist(double) external code
     for (auto iter : m_t) {
         cout << iter.first << " ";
         for (int i = 0; i < iter.second.size(); i++) {
@@ -78,7 +80,9 @@ int main() {
         }
         cout << "\n";
     }
-    while (true) {
+    bool flag1 = true;
+    while (flag1) {
+        flag1 = false;
         string st, et;
         vector < string > st_n, et_n;
         while (true) {
@@ -102,25 +106,34 @@ int main() {
             }
             else cout << "Wrong name" << "\n";
         }
-        visit.clear();
-        while (!pq.empty()) {
-            pq.pop();
-        }
-        
-        auto et_iter = m_c.find(et_n[0]);
-        for (int i = 0; i < st_n.size(); i++) {
-            auto iter = m_c.find(st_n[i]);
-            pq.push(make_pair(-f_dist(iter->second, et_iter->second), iter->first));
-            visit.insert(make_pair(iter->first, f_dist(iter->second, et_iter->second)));
-        }
-
-        while (pq.empty()) {
-            double cost = pq.top().first;
+        bool flag = true;
+        pq.push(make_pair(-0.0, st_n[0]));
+        while (flag) {
             string now = pq.top().second;
+            double cost = -pq.top().first;
             pq.pop();
 
+            closed.push_back(now);
+            ans.push_back(now);
+            pq = priority_queue < pair < double, string> >();
 
+            for (int i = 0; i < et_n.size(); i++) {
+                if (et_n[i] == ans.back()) flag = false;
+            } 
+
+            auto iter = m_t.find(now);
+            for (int i = 0; i < iter->second.size(); i++) {
+                string next = iter->second[i].first;
+                if (find(closed.begin(), closed.end(), next) != closed.end()) continue;
+                pq.push(make_pair( -(f_dist(now, et_n[0]) + iter->second[i].second), next));
+            }
         }
-
+        if (ans.size() >= 2) {
+            if (m.find(ans[0])->second == m.find(ans[1])->second) ans.erase(ans.begin());
+            if (m.find(ans[ans.size() - 1])->second == m.find(ans[ans.size() - 2])->second) ans.erase(ans.begin());
+        }
+        for (int i = 0; i < ans.size(); i++) {
+            cout << ans[i] << " ";
+        }
     }
 }
